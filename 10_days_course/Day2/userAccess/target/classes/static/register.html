@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register</title>
+  <style>
+    body { font-family: Arial; background: #f0f0f0; display: flex; justify-content: center; align-items: center; height: 100vh; }
+    .form-box { background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 0 15px rgba(0,0,0,0.1); width: 300px; }
+    h2 { margin-bottom: 20px; }
+    input, button { width: 100%; padding: 10px; margin: 10px 0; font-size: 16px; }
+    button { background: #007bff; color: #fff; border: none; cursor: pointer; }
+    button:hover { background: #0056b3; }
+  </style>
+</head>
+<body>
+<div class="form-box">
+  <h2>Register</h2>
+  <input type="text" id="regUsername" placeholder="Username" required />
+  <input type="password" id="regPassword" placeholder="Password" required />
+  <button onclick="register()">Submit</button>
+</div>
+
+<script>
+  function register() {
+    const username = document.getElementById("regUsername").value;
+    const password = document.getElementById("regPassword").value;
+
+    fetch("http://localhost:8080/api/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password })
+    })
+    .then(response => response.text())
+    .then(data => alert("Register: " + data))
+    .catch(error => alert("Error: " + error));
+  }
+</script>
+</body>
+</html>
