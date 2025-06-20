@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sample Form</title>
+</head>
+<body>
+<h2>Simple Form</h2>
+<form id="sampleForm">
+  Name: <input type="text" id="name"><br><br>
+  <button type="button" onclick="submitForm()">Submit</button>
+</form>
+
+<script>
+  function submitForm() {
+      let name = document.getElementById("name").value;
+      alert("Hello " + name);
+  }
+</script>
+</body>
+</html>
