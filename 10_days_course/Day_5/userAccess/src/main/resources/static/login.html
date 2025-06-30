@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <style>
+    /* 👕 Basic styling for a clean form layout */
+    body { font-family: Arial; margin: 50px; }
+    form { max-width: 400px; margin: auto; }
+    input { display: block; width: 100%; padding: 10px; margin-bottom: 15px; }
+    button { padding: 10px 20px; }
+  </style>
+</head>
+<body>
+<h2>Login</h2>
+
+<!-- 📝 Login form that takes username and password -->
+<form id="loginForm">
+  <input type="text" id="username" placeholder="Username" required />
+  <input type="password" id="password" placeholder="Password" required />
+  <button type="submit">Login</button>
+</form>
+
+<!-- 🛑 Paragraph to show login status or errors -->
+<p id="message"></p>
+
+<script>
+  // 🔁 Attach an event listener to the login form
+  document.getElementById("loginForm").addEventListener("submit", async (e) => {
+    e.preventDefault(); // ❌ Prevent the browser from doing a page reload
+
+    // 🧾 Read values from the form
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    // 📡 Send POST request to your backend login API
+    const res = await fetch("/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json" // Tell the server this is JSON
+      },
+      body: JSON.stringify({ username, password }) // 🚀 Send login details
+    });
+
+    // 📌 Select the message paragraph element
+    const msg = document.getElementById("message");
+
+    // ✅ If login is successful
+    if (res.ok) {
+      const data = await res.json(); // 🔓 Parse the response
+      localStorage.setItem("token", data.token);     // 💾 Save JWT token locally
+      localStorage.setItem("username", username);    // 💾 Save username
+      window.location.href = "home.html";            // 🔀 Redirect to home page
+    } else {
+      // ❌ Display error message on login failure
+      msg.innerText = "Login failed. Try again.";
+      msg.style.color = "red";
+    }
+  });
+</script>
+</body>
+</html>

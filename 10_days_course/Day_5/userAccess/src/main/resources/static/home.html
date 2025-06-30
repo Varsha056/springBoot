@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Home</title>
+  <style>
+    /* Page styling */
+    body { font-family: Arial; margin: 50px; }
+  </style>
+</head>
+<body>
+<h2>Welcome</h2>
+<p id="greeting"></p>
+<button onclick="logout()">Logout</button>
+
+<script>
+  // Read token and username from localStorage
+  const token = localStorage.getItem("token");
+  const username = localStorage.getItem("username");
+
+  // If no token, redirect back to login
+  if (!token) {
+    window.location.href = "login.html";
+  } else {
+    // Greet the user by name
+    document.getElementById("greeting").innerText = "Welcome, " + username + "!";
+  }
+
+  // Clear data and return to login
+  function logout() {
+    localStorage.clear(); // Clear stored JWT and username
+    window.location.href = "login.html"; // Redirect to login
+  }
+</script>
+</body>
+</html>
